@@ -9,10 +9,10 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pcre
 PKG_VERSION:=8.40
-PKG_RELEASE:=2
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/
+PKG_SOURCE_URL:=https://ftp.pcre.org/pub/pcre/
 PKG_MD5SUM:=41a842bf7dcecd6634219336e2167d1d
 PKG_MAINTAINER:=Thomas Heil <heil@terminal-consulting.de>
 
@@ -34,17 +34,6 @@ endef
 define Package/libpcre
   $(call Package/libpcre/default)
   TITLE:=A Perl Compatible Regular Expression library
-endef
-
-define Package/libpcre16
-  $(call Package/libpcre/default)
-  TITLE:=A Perl Compatible Regular Expression library (16bit support)
-endef
-
-define Package/libpcrecpp
-  $(call Package/libpcre/default)
-  TITLE:=C++ wrapper for Perl Compatible Regular Expression library
-  DEPENDS:=+libpcre +libstdcpp
 endef
 
 TARGET_CFLAGS += $(FPIC)
@@ -86,16 +75,4 @@ define Package/libpcre/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libpcre.so $(1)/usr/lib/
 endef
 
-define Package/libpcre16/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libpcre16.so* $(1)/usr/lib/
-endef
-
-define Package/libpcrecpp/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libpcrecpp.so.* $(1)/usr/lib/
-endef
-
 $(eval $(call BuildPackage,libpcre))
-$(eval $(call BuildPackage,libpcre16))
-$(eval $(call BuildPackage,libpcrecpp))
